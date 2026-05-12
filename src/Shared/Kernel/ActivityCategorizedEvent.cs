@@ -1,7 +1,17 @@
+using MediatR;
+
 namespace PDH.Shared.Kernel;
 
-public record ActivityCategorizedEvent(Guid ActivityId, string Category, DateTime OccurredOn) : IDomainEvent
+public record ActivityCategorizedEvent : IDomainEvent, INotification
 {
+    public Guid ActivityId { get; }
+    public string Category { get; }
+    public DateTime OccurredOn { get; }
+
     public ActivityCategorizedEvent(Guid activityId, string category)
-        : this(activityId, category, DateTime.UtcNow) { }
+    {
+        ActivityId = activityId;
+        Category = category;
+        OccurredOn = DateTime.UtcNow;
+    }
 }
