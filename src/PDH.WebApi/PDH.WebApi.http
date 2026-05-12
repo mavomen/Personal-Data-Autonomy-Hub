@@ -1,6 +1,0 @@
-@PDH.WebApi_HostAddress = http://localhost:5295
-
-GET {{PDH.WebApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
