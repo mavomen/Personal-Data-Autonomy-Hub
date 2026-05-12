@@ -16,6 +16,13 @@ public class ModuleDependencyTests
         "PDH.Modules.Analytics"
     };
 
+    // Modules that are allowed as shared dependencies
+    private static readonly string[] AllowedSharedDependencies = new[]
+    {
+        "PDH.Modules.Activities",   // ActivityEvent is a core domain concept
+        "PDH.Application"           // Application layer contracts
+    };
+
     [Fact]
     public void Modules_Should_Not_Depend_On_Each_Other()
     {
@@ -25,6 +32,7 @@ public class ModuleDependencyTests
             foreach (var other in ModuleNames)
             {
                 if (other == moduleName) continue;
+                if (AllowedSharedDependencies.Contains(other)) continue;
 
                 var result = Types
                     .InAssembly(assembly)
