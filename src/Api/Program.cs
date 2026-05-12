@@ -1,3 +1,4 @@
+using PDH.Api.Hubs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
@@ -98,6 +99,11 @@ app.UseHttpMetrics();
 app.MapMetrics();
 app.UseAuthentication();
 app.UseAuthorization();
+
+builder.Services.AddSignalR();
+
 app.MapControllers();
+
+app.MapHub<NotificationHub>("/hubs/notifications");
 
 app.Run();
