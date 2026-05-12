@@ -6,6 +6,9 @@ using Prometheus;
 using PDH.Shared.Infrastructure;
 using PDH.Shared.Infrastructure.Extensions;
 using PDH.Application;
+using PDH.Modules.Integrations;
+using PDH.Application.Interfaces;
+using PDH.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +43,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Application & Infrastructure layers
 builder.Services.AddApplication();
+builder.Services.AddIntegrations();
 builder.Services.AddInfrastructure();
 
 // JWT Authentication
@@ -63,6 +67,9 @@ builder.Services.AddAuthentication(Microsoft.AspNetCore.Authentication.JwtBearer
 builder.Services.AddAuthorization();
 
 builder.Services.AddDataProtection();
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 var app = builder.Build();
 
