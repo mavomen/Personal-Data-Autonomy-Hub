@@ -1,12 +1,12 @@
-using NetArchTest.Rules;
 using System.Reflection;
+using NetArchTest.Rules;
 using Xunit;
 
 namespace PDH.ArchitectureTests;
 
 public class ModuleDependencyTests
 {
-    private static readonly string[] ModuleProjects = new[]
+    private static readonly string[] ModuleNames = new[]
     {
         "PDH.Modules.Identity",
         "PDH.Modules.Activities",
@@ -19,18 +19,24 @@ public class ModuleDependencyTests
     [Fact]
     public void Modules_Should_Not_Depend_On_Each_Other()
     {
-        foreach (var module in ModuleProjects)
+        foreach (var moduleName in ModuleNames)
         {
-            var types = Types.InAssembly(Assembly.Load(module));
+            var assembly = Assembly.Load(moduleName);
+            foreach (var other in ModuleNames)
+            {
+                if (other == moduleName) continue;
 
-            var result = types
-                .That()
-                .ResideInNamespace($"{module}")
-                .ShouldNot()
-                .HaveDependencyOnAny(ModuleProjects.Where(m => m != module).ToArray())
-                .GetResult();
+                var result = Types
+                    .InAssembly(assembly)
+                    .That()
+                    .ResideInNamespace(moduleName)
+                    .ShouldNot()
+                    .HaveDependencyOn(other)
+                    .GetResult();
 
-            Assert.True(result.IsSuccessful, $"Module {module} has a forbidden dependency: {result.FailingTypeNames}");
+                Assert.True(result.IsSuccessful,
+                    $"Module {moduleName} should not depend on {other}");
+            }
         }
     }
 }
