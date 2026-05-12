@@ -7,8 +7,30 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.23" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="OpenTelemetry.Exporter.Console" />
+    <PackageReference Include="OpenTelemetry.Extensions.Hosting" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.AspNetCore" />
+    <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
+    <PackageReference Include="prometheus-net.AspNetCore" />
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Modules\Identity\PDH.Modules.Identity.csproj" />
+    <ProjectReference Include="..\Modules\Activities\PDH.Modules.Activities.csproj" />
+    <ProjectReference Include="..\Modules\Integrations\PDH.Modules.Integrations.csproj" />
+    <ProjectReference Include="..\Modules\ML\PDH.Modules.ML.csproj" />
+    <ProjectReference Include="..\Modules\Chat\PDH.Modules.Chat.csproj" />
+    <ProjectReference Include="..\Modules\Analytics\PDH.Modules.Analytics.csproj" />
+    <ProjectReference Include="..\Shared\Infrastructure\PDH.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\Application\PDH.Application.csproj" />
   </ItemGroup>
 
 </Project>
