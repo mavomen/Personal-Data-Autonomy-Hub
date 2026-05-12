@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio">
@@ -26,6 +27,7 @@
     <ProjectReference Include="..\..\src\Shared\Kernel\PDH.Shared.Kernel.csproj" />
     <ProjectReference Include="..\..\src\Modules\Identity\PDH.Modules.Identity.csproj" />
     <ProjectReference Include="..\..\src\Modules\Activities\PDH.Modules.Activities.csproj" />
+    <ProjectReference Include="..\..\src\Shared\Infrastructure\PDH.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
