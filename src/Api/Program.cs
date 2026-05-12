@@ -3,6 +3,8 @@ using Serilog;
 using OpenTelemetry.Trace;
 using Prometheus;
 using PDH.Shared.Infrastructure;
+using PDH.Shared.Infrastructure.Extensions;
+using PDH.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,9 @@ builder.Services.AddOpenTelemetry()
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure();
 
 var app = builder.Build();
 

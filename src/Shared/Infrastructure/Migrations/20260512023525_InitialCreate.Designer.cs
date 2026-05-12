@@ -12,7 +12,7 @@ using PDH.Shared.Infrastructure;
 namespace PDH.Shared.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260512020139_InitialCreate")]
+    [Migration("20260512023525_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

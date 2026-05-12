@@ -1,17 +1,21 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using PDH.Modules.Activities;
 using PDH.Modules.Identity;
+using PDH.Shared.Kernel;
+using PDH.Shared.Infrastructure.Outbox;
+using System.Text.Json;
 
 namespace PDH.Shared.Infrastructure;
 
 public class ApplicationDbContext : DbContext
 {
-    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-        : base(options) { }
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
     public DbSet<User> Users => Set<User>();
     public DbSet<OAuthIntegration> OAuthIntegrations => Set<OAuthIntegration>();
     public DbSet<ActivityEvent> ActivityEvents => Set<ActivityEvent>();
+    public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -47,5 +51,41 @@ public class ApplicationDbContext : DbContext
                   .IsRequired()
                   .HasMaxLength(50);
         });
+
+        modelBuilder.Entity<OutboxMessage>(entity =>
+        {
+            entity.HasKey(m => m.Id);
+            entity.Property(m => m.Type).IsRequired();
+            entity.Property(m => m.Data).IsRequired();
+            entity.Property(m => m.OccurredOn).IsRequired();
+        });
+    }
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        CaptureDomainEvents();
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+
+    private void CaptureDomainEvents()
+    {
+        var outboxMessages = new List<OutboxMessage>();
+        foreach (var entry in ChangeTracker.Entries<Entity>())
+        {
+            var events = entry.Entity.DomainEvents.ToList();
+            foreach (var domainEvent in events)
+            {
+                outboxMessages.Add(new OutboxMessage(
+                    domainEvent.GetType().AssemblyQualifiedName!,
+                    JsonSerializer.Serialize(domainEvent, domainEvent.GetType()),
+                    domainEvent.OccurredOn));
+            }
+            entry.Entity.ClearDomainEvents();
+        }
+
+        if (outboxMessages.Any())
+        {
+            Set<OutboxMessage>().AddRange(outboxMessages);
+        }
     }
 }
