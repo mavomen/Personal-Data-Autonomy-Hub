@@ -11,4 +11,14 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Modules\Identity\PDH.Modules.Identity.csproj" />
+    <ProjectReference Include="..\Modules\Activities\PDH.Modules.Activities.csproj" />
+    <ProjectReference Include="..\Modules\Integrations\PDH.Modules.Integrations.csproj" />
+    <ProjectReference Include="..\Modules\ML\PDH.Modules.ML.csproj" />
+    <ProjectReference Include="..\Modules\Chat\PDH.Modules.Chat.csproj" />
+    <ProjectReference Include="..\Modules\Analytics\PDH.Modules.Analytics.csproj" />
+    <ProjectReference Include="..\Shared\Infrastructure\PDH.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
