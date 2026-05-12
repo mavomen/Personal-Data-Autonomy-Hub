@@ -2,6 +2,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Shared\Kernel\PDH.Shared.Kernel.csproj" />
+    <ProjectReference Include="..\Activities\PDH.Modules.Activities.csproj" />
+    <ProjectReference Include="..\..\Shared\Infrastructure\PDH.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.ML" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -10,10 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="Testcontainers.PostgreSql" />
+    <PackageReference Include="Moq" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -26,8 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Application\PDH.Application.csproj" />
     <ProjectReference Include="..\..\src\Shared\Infrastructure\PDH.Shared.Infrastructure.csproj" />
-    <ProjectReference Include="..\..\src\Api\PDH.Api.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Identity\PDH.Modules.Identity.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Activities\PDH.Modules.Activities.csproj" />
+    <ProjectReference Include="..\..\src\Shared\Kernel\PDH.Shared.Kernel.csproj" />
   </ItemGroup>
 
 </Project>
