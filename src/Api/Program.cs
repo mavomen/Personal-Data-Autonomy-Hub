@@ -30,6 +30,8 @@ builder.Services.AddControllers()
     });
 
 builder.Services.AddProblemDetails();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 // OpenTelemetry
 builder.Services.AddOpenTelemetry()
@@ -39,8 +41,16 @@ builder.Services.AddOpenTelemetry()
          .AddConsoleExporter());
 
 // EF Core
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+if (builder.Environment.IsDevelopment())
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseInMemoryDatabase("DevDb"));
+}
+else
+{
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
+}
 
 // Application & Infrastructure layers
 builder.Services.AddApplication();
@@ -104,6 +114,12 @@ app.UseHttpMetrics();
 app.MapMetrics();
 app.UseAuthentication();
 app.UseAuthorization();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.MapControllers();
 
