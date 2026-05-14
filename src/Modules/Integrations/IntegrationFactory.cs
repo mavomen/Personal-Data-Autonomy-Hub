@@ -1,24 +1,22 @@
 using PDH.Application.Interfaces;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace PDH.Modules.Integrations;
 
 public class IntegrationFactory : IIntegrationFactory
 {
-    private readonly IServiceProvider _serviceProvider;
+    private readonly IEnumerable<IIntegrationService> _services;
 
-    public IntegrationFactory(IServiceProvider serviceProvider)
+    public IntegrationFactory(IEnumerable<IIntegrationService> services)
     {
-        _serviceProvider = serviceProvider;
+        _services = services;
     }
 
     public IIntegrationService GetService(string provider)
     {
-        return provider switch
-        {
-            "GitHub" => _serviceProvider.GetRequiredService<GitHubIntegrationService>(),
-            "GoogleCalendar" => _serviceProvider.GetRequiredService<GoogleCalendarIntegrationService>(),
-            _ => throw new ArgumentException($"Unknown provider: {provider}")
-        };
+        var service = _services.FirstOrDefault(s =>
+            s.Provider.Equals(provider, StringComparison.OrdinalIgnoreCase));
+        if (service == null)
+            throw new ArgumentException($"Unknown provider: {provider}");
+        return service;
     }
 }

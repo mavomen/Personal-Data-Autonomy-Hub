@@ -1,9 +1,14 @@
 <Project>
   <PropertyGroup>
+    <NoWarn>$(NoWarn);NU1902</NoWarn>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <PropertyGroup>
+    <NoWarn>$(NoWarn);NU1902</NoWarn>
     <CollectCoverage>true</CollectCoverage>
+    <Exclude>[*.Migrations.*]*</Exclude>
+    <Exclude>[*.Migrations.*]*</Exclude>
+    <Exclude>[*.Migrations.*]*</Exclude>
     <CoverletOutputFormat>cobertura,json,html</CoverletOutputFormat>
     <CoverletOutput>./coverage/</CoverletOutput>
     <Threshold>90</Threshold>

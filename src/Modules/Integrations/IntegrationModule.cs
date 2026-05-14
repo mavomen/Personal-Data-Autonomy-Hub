@@ -20,8 +20,8 @@ public static class IntegrationModule
         });
 
         // Integration services
-        services.AddScoped<GitHubIntegrationService>();
-        services.AddScoped<GoogleCalendarIntegrationService>();
+        services.AddScoped<IIntegrationService, GitHubIntegrationService>();
+        services.AddScoped<IIntegrationService, GoogleCalendarIntegrationService>();
         services.AddScoped<IIntegrationFactory, IntegrationFactory>();
 
         return services;

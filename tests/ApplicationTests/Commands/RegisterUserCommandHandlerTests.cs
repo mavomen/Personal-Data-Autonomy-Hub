@@ -4,7 +4,6 @@ using PDH.Shared.Infrastructure.Persistence;
 using PDH.Shared.Infrastructure.Repositories;
 using PDH.Shared.Infrastructure.DomainEvents;
 using PDH.Modules.Identity;
-using Moq;
 using Xunit;
 
 namespace PDH.ApplicationTests.Commands;

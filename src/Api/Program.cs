@@ -72,6 +72,11 @@ builder.Services.AddDataProtection();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
+if (!builder.Environment.IsEnvironment("Testing"))
+{
+    builder.Services.AddSignalR();
+}
+
 var app = builder.Build();
 
 // Global error handling middleware (catch unhandled exceptions and return ProblemDetails)
@@ -100,11 +105,14 @@ app.MapMetrics();
 app.UseAuthentication();
 app.UseAuthorization();
 
-builder.Services.AddSignalR();
-
 app.MapControllers();
 
-app.MapHub<NotificationHub>("/hubs/notifications");
+// Map the SignalR hub only when not in testing
+if (!app.Environment.IsEnvironment("Testing"))
+{
+    app.MapHub<NotificationHub>("/hubs/notifications");
+}
 
 app.Run();
+
 public partial class Program { }

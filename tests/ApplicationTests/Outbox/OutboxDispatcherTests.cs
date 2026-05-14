@@ -1,8 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using Moq;
+using Microsoft.EntityFrameworkCore;
 using MediatR;
 using Microsoft.Extensions.Logging;
-using Moq;
 using PDH.Shared.Infrastructure;
 using PDH.Shared.Infrastructure.Outbox;
 using Xunit;

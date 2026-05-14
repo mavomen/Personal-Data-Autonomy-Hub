@@ -3,7 +3,7 @@ using PDH.Application.Interfaces;
 using PDH.Shared.Infrastructure.Repositories;
 using PDH.Shared.Infrastructure.Persistence;
 using PDH.Modules.Identity;
-using IOAuthTokenEncryptionService = PDH.Application.Interfaces.IOAuthTokenEncryptionService;
+using IOAuthTokenEncryptionService = PDH.Shared.Kernel.Interfaces.IOAuthTokenEncryptionService;
 
 namespace PDH.Application.Commands.ConnectIntegration;
 

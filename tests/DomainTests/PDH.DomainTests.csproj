@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\src\Modules\Identity\PDH.Modules.Identity.csproj" />
     <ProjectReference Include="..\..\src\Modules\Activities\PDH.Modules.Activities.csproj" />
     <ProjectReference Include="..\..\src\Shared\Infrastructure\PDH.Shared.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\src\Modules\ML\PDH.Modules.ML.csproj" />
   </ItemGroup>
 
 </Project>

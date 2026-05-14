@@ -30,6 +30,9 @@
     <ProjectReference Include="..\..\src\Modules\Identity\PDH.Modules.Identity.csproj" />
     <ProjectReference Include="..\..\src\Modules\Activities\PDH.Modules.Activities.csproj" />
     <ProjectReference Include="..\..\src\Shared\Kernel\PDH.Shared.Kernel.csproj" />
+    <ProjectReference Include="..\..\src\Modules\Integrations\PDH.Modules.Integrations.csproj" />
+    <ProjectReference Include="..\..\src\Modules\ML\PDH.Modules.ML.csproj" />
+    <ProjectReference Include="..\..\src\Api\PDH.Api.csproj" />
   </ItemGroup>
 
 </Project>
